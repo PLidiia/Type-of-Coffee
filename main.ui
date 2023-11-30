@@ -32,8 +32,8 @@
   <widget class="QListWidget" name="data_find">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>230</y>
+     <x>740</x>
+     <y>240</y>
      <width>581</width>
      <height>191</height>
     </rect>
@@ -410,8 +410,8 @@ font: 75 18pt &quot;Microsoft New Tai Lue&quot;;</string>
   <widget class="QLineEdit" name="count_data">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>540</y>
+     <x>570</x>
+     <y>520</y>
      <width>331</width>
      <height>101</height>
     </rect>
@@ -420,8 +420,8 @@ font: 75 18pt &quot;Microsoft New Tai Lue&quot;;</string>
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>470</y>
+     <x>570</x>
+     <y>460</y>
      <width>561</width>
      <height>71</height>
     </rect>
@@ -432,6 +432,23 @@ font: 75 18pt &quot;Microsoft New Tai Lue&quot;;</string>
    </property>
    <property name="text">
     <string>Количество найдённых данных</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="add_change">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>660</y>
+     <width>741</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 81 14pt &quot;Rockwell Extra Bold&quot;;
+font: 75 18pt &quot;Microsoft New Tai Lue&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Добавить или изменить данные из БД</string>
    </property>
   </widget>
  </widget>
