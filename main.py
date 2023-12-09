@@ -1,205 +1,169 @@
-import sqlite3
-import sys
+# -*- coding: utf-8 -*-
 
-from PyQt5 import uic
-from PyQt5.QtWidgets import QWidget, QApplication, QStackedWidget
-
-from add_change import ADD_CHANGE
-
-
-class Widget(QWidget):
-    def __init__(self):
-        super().__init__()
-        uic.loadUi('main.ui', self)
-        self.con = sqlite3.connect('coffee.bd')
-        self.search_words.clicked.connect(self.searching)
-        self.data_search.clicked.connect(self.pushing)
-        self.add_change.clicked.connect(self.adding_changing)
-
-    def adding_changing(self):
-        menu = ADD_CHANGE(widget)
-        widget.addWidget(menu)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
-
-    def pushing(self):
-        text_combo = self.atribute.currentText()
-        text_search = self.text_atr.text()
-        cur = self.con.cursor()
-        if text_combo == 'ID':
-            dates_one_id = cur.execute("SELECT ID FROM info WHERE id = ?", (text_search,)).fetchone()
-            dates = cur.execute("SELECT ID FROM info WHERE id = ?", (text_search,)).fetchall()
-            dates_one_name_sort = cur.execute("SELECT name_sort FROM info WHERE id = ?", (text_search,)).fetchone()
-            dates_one_degree = cur.execute("SELECT degree_fried FROM info WHERE id = ?", (text_search,)).fetchone()
-            dates_one_type = cur.execute("SELECT type FROM info WHERE id = ?", (text_search,)).fetchone()
-            dates_one_name_descr = cur.execute("SELECT description FROM info WHERE id = ?", (text_search,)).fetchone()
-            dates_one_price = cur.execute("SELECT price FROM info WHERE id = ?", (text_search,)).fetchone()
-            dates_one_volume = cur.execute("SELECT volume FROM info WHERE id = ?", (text_search,)).fetchone()
-            if self.id and self.name and self.degree and self.type and self.descript and self.price and self.volume:
-                self.count_data.setText(str(len(dates)))
-                self.id.setText(str(dates_one_id[0]))
-                self.name.setText(dates_one_name_sort[0])
-                self.degree.setText(dates_one_degree[0])
-                self.type.setText(dates_one_type[0])
-                self.descript.setText(dates_one_name_descr[0])
-                self.price.setText(dates_one_price[0])
-                self.volume.setText(dates_one_volume[0])
-        if text_combo == 'Название сорта':
-            dates_one_id = cur.execute("SELECT ID FROM info WHERE name_sort = ?", (text_search,)).fetchone()
-            print(dates_one_id[0])
-            dates = cur.execute("SELECT ID FROM info WHERE name_sort = ?", (text_search,)).fetchall()
-            dates_one_name_sort = cur.execute("SELECT name_sort FROM info WHERE name_sort = ?",
-                                              (text_search,)).fetchone()
-            dates_one_degree = cur.execute("SELECT degree_fried FROM info WHERE name_sort = ?",
-                                           (text_search,)).fetchone()
-            dates_one_type = cur.execute("SELECT type FROM info WHERE name_sort = ?",
-                                         (text_search,)).fetchone()
-            dates_one_name_descr = cur.execute("SELECT description FROM info WHERE name_sort = ?",
-                                               (text_search,)).fetchone()
-            dates_one_price = cur.execute("SELECT price FROM info WHERE name_sort = ?",
-                                          (text_search,)).fetchone()
-            dates_one_volume = cur.execute("SELECT volume FROM info WHERE name_sort = ?",
-                                           (text_search,)).fetchone()
-            if self.id and self.name and self.degree and self.type and self.descript and self.price and self.volume:
-                self.count_data.setText(str(len(dates)))
-                self.id.setText(str(dates_one_id[0]))
-                self.name.setText(dates_one_name_sort[0])
-                print(dates_one_name_sort[0])
-                self.degree.setText(dates_one_degree[0])
-                self.type.setText(dates_one_type[0])
-                self.descript.setText(dates_one_name_descr[0])
-                self.price.setText(dates_one_price[0])
-                self.volume.setText(dates_one_volume[0])
-
-        if text_combo == 'Степень обжарки':
-            dates_one_id = cur.execute("SELECT ID FROM info WHERE degree_fried = ?", (text_search,)).fetchone()
-            dates = cur.execute("SELECT ID FROM info WHERE degree_fried = ?", (text_search,)).fetchall()
-            dates_one_name_sort = cur.execute("SELECT name_sort FROM info WHERE degree_fried = ?",
-                                              (text_search,)).fetchone()
-            dates_one_degree = cur.execute("SELECT degree_fried FROM info WHERE degree_fried = ?",
-                                           (text_search,)).fetchone()
-            dates_one_type = cur.execute("SELECT type FROM info WHERE degree_fried = ?",
-                                         (text_search,)).fetchone()
-            dates_one_name_descr = cur.execute("SELECT description FROM info WHERE degree_fried = ?",
-                                               (text_search,)).fetchone()
-            dates_one_price = cur.execute("SELECT price FROM info WHERE degree_fried = ?", (text_search,)).fetchone()
-            dates_one_volume = cur.execute("SELECT volume FROM info WHERE degree_fried = ?", (text_search,)).fetchone()
-            if self.id and self.name and self.degree and self.type and self.descript and self.price and self.volume:
-                self.count_data.setText(str(len(dates)))
-                self.id.setText(str(dates_one_id[0]))
-                self.name.setText(dates_one_name_sort[0])
-                self.degree.setText(dates_one_degree[0])
-                self.type.setText(dates_one_type[0])
-                self.descript.setText(dates_one_name_descr[0])
-                self.price.setText(dates_one_price[0])
-                self.volume.setText(dates_one_volume[0])
-
-        if text_combo == 'Молотый/в зернах':
-            dates_one_id = cur.execute("SELECT ID FROM info WHERE type = ?", (text_search,)).fetchone()
-            dates = cur.execute("SELECT ID FROM info WHERE type = ?", (text_search,)).fetchall()
-            dates_one_name_sort = cur.execute("SELECT name_sort FROM info WHERE type = ?", (text_search,)).fetchone()
-            dates_one_degree = cur.execute("SELECT degree_fried FROM info WHERE type = ?", (text_search,)).fetchone()
-            dates_one_type = cur.execute("SELECT type FROM info WHERE type = ?", (text_search,)).fetchone()
-            dates_one_name_descr = cur.execute("SELECT description FROM info WHERE type = ?", (text_search,)).fetchone()
-            dates_one_price = cur.execute("SELECT price FROM info WHERE type = ?", (text_search,)).fetchone()
-            dates_one_volume = cur.execute("SELECT volume FROM info WHERE type = ?", (text_search,)).fetchone()
-            if self.id and self.name and self.degree and self.type and self.descript and self.price and self.volume:
-                self.count_data.setText(str(len(dates)))
-                self.id.setText(str(dates_one_id[0]))
-                self.name.setText(dates_one_name_sort[0])
-                self.degree.setText(dates_one_degree[0])
-                self.type.setText(dates_one_type[0])
-                self.descript.setText(dates_one_name_descr[0])
-                self.price.setText(dates_one_price[0])
-                self.volume.setText(dates_one_volume[0])
-
-        if text_combo == 'Описание вкуса':
-            dates_one_id = cur.execute("SELECT ID FROM info WHERE description = ?", (text_search,)).fetchone()
-            dates = cur.execute("SELECT ID FROM info WHERE description = ?", (text_search,)).fetchall()
-            dates_one_name_sort = cur.execute("SELECT name_sort FROM info WHERE description = ?",
-                                              (text_search,)).fetchone()
-            dates_one_degree = cur.execute("SELECT degree_fried FROM info WHERE description = ?",
-                                           (text_search,)).fetchone()
-            dates_one_type = cur.execute("SELECT type FROM info WHERE description = ?",
-                                         (text_search,)).fetchone()
-            dates_one_name_descr = cur.execute("SELECT description FROM info WHERE description = ?",
-                                               (text_search,)).fetchone()
-            dates_one_price = cur.execute("SELECT price FROM info WHERE description = ?", (text_search,)).fetchone()
-            dates_one_volume = cur.execute("SELECT volume FROM info WHERE description = ?", (text_search,)).fetchone()
-            if self.id and self.name and self.degree and self.type and self.descript and self.price and self.volume:
-                self.count_data.setText(str(len(dates)))
-                self.id.setText(str(dates_one_id[0]))
-                self.name.setText(dates_one_name_sort[0])
-                self.degree.setText(dates_one_degree[0])
-                self.type.setText(dates_one_type[0])
-                self.descript.setText(dates_one_name_descr[0])
-                self.price.setText(dates_one_price[0])
-                self.volume.setText(dates_one_volume[0])
-
-        if text_combo == 'Цена':
-            dates_one_id = cur.execute("SELECT ID FROM info WHERE price = ?", (text_search,)).fetchone()
-            dates = cur.execute("SELECT ID FROM info WHERE price = ?", (text_search,)).fetchall()
-            dates_one_name_sort = cur.execute("SELECT name_sort FROM info WHERE price = ?",
-                                              (text_search,)).fetchone()
-            dates_one_degree = cur.execute("SELECT degree_fried FROM info WHERE price = ?", (text_search,)).fetchone()
-            dates_one_type = cur.execute("SELECT type FROM info WHERE price = ?", (text_search,)).fetchone()
-            dates_one_name_descr = cur.execute("SELECT description FROM info WHERE price = ?",
-                                               (text_search,)).fetchone()
-            dates_one_price = cur.execute("SELECT price FROM info WHERE price = ?", (text_search,)).fetchone()
-            dates_one_volume = cur.execute("SELECT volume FROM info WHERE price = ?", (text_search,)).fetchone()
-            self.count_data.setText(str(len(dates)))
-            if self.id and self.name and self.degree and self.type and self.descript and self.price and self.volume:
-                self.id.setText(str(dates_one_id[0]))
-                self.name.setText(dates_one_name_sort[0])
-                self.degree.setText(dates_one_degree[0])
-                self.type.setText(dates_one_type[0])
-                self.descript.setText(dates_one_name_descr[0])
-                self.price.setText(dates_one_price[0])
-                self.volume.setText(dates_one_volume[0])
-
-        if text_combo == 'Объём упаковки':
-            dates_one_id = cur.execute("SELECT ID FROM info WHERE volume = ?", (text_search,)).fetchone()
-            dates = cur.execute("SELECT ID FROM info WHERE volume = ?", (text_search,)).fetchall()
-            dates_one_name_sort = cur.execute("SELECT name_sort FROM info WHERE volume = ?", (text_search,)).fetchone()
-            dates_one_degree = cur.execute("SELECT degree_fried FROM info WHERE volume = ?", (text_search,)).fetchone()
-            dates_one_type = cur.execute("SELECT type FROM info WHERE volume = ?", (text_search,)).fetchone()
-            dates_one_name_descr = cur.execute("SELECT description FROM info WHERE volume = ?",
-                                               (text_search,)).fetchone()
-            dates_one_price = cur.execute("SELECT price FROM info WHERE volume = ?",
-                                          (text_search,)).fetchone()
-            dates_one_volume = cur.execute("SELECT volume FROM info WHERE volume = ?", (text_search,)).fetchone()
-            self.count_data.setText(str(len(dates)))
-            if self.id and self.name and self.degree and self.type and self.descript and self.price and self.volume:
-                self.id.setText(str(dates_one_id[0]))
-                self.name.setText(dates_one_name_sort[0])
-                self.degree.setText(dates_one_degree[0])
-                self.type.setText(dates_one_type[0])
-                self.descript.setText(dates_one_name_descr[0])
-                self.price.setText(dates_one_price[0])
-                self.volume.setText(dates_one_volume[0])
-
-    def searching(self):
-        self.data_find.clear()
-        cur = self.con.cursor()
-        text_line = self.words.text()
-        dates = cur.execute("SELECT * FROM info WHERE description LIKE ?", ('%' + text_line + '%',)).fetchall()
-        if not dates:
-            self.data_find.addItem('По вашему запросу ничего не было найдено')
-        else:
-            for date in range(len(dates[0]) - 1):
-                self.data_find.addItem(dates[0][date])
+# Form implementation generated from reading ui file 'main.ui'
+#
+# Created by: PyQt5 UI code generator 5.15.10
+#
+# WARNING: Any manual changes made to this file will be lost when pyuic5 is
+# run again.  Do not edit this file unless you know what you are doing.
 
 
-def except_hook(cls, exception, traceback):
-    sys.__excepthook__(cls, exception, traceback)
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = Widget()
-    widget = QStackedWidget()
-    widget.addWidget(ex)
-    widget.setFixedWidth(1500)
-    widget.setFixedHeight(1500)
-    widget.show()
-    sys.__excepthook__ = except_hook
-    sys.exit(app.exec())
+class Ui_Form(object):
+    def setupUi(self, Form):
+        Form.setObjectName("Form")
+        Form.resize(1395, 822)
+        self.label = QtWidgets.QLabel(Form)
+        self.label.setGeometry(QtCore.QRect(10, 0, 421, 101))
+        self.label.setStyleSheet("font: 81 28pt \"Rockwell Extra Bold\";")
+        self.label.setObjectName("label")
+        self.data_find = QtWidgets.QListWidget(Form)
+        self.data_find.setGeometry(QtCore.QRect(740, 240, 581, 191))
+        self.data_find.setObjectName("data_find")
+        self.search_words = QtWidgets.QPushButton(Form)
+        self.search_words.setGeometry(QtCore.QRect(940, 80, 421, 101))
+        self.search_words.setStyleSheet("font: 81 18pt \"Rockwell Extra Bold\";")
+        self.search_words.setObjectName("search_words")
+        self.words = QtWidgets.QLineEdit(Form)
+        self.words.setGeometry(QtCore.QRect(460, 80, 411, 101))
+        self.words.setObjectName("words")
+        self.label_2 = QtWidgets.QLabel(Form)
+        self.label_2.setGeometry(QtCore.QRect(450, 0, 501, 101))
+        self.label_2.setStyleSheet("font: 81 14pt \"Rockwell Extra Bold\";")
+        self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(Form)
+        self.label_3.setGeometry(QtCore.QRect(760, 180, 501, 61))
+        self.label_3.setStyleSheet("font: 81 14pt \"Rockwell Extra Bold\";")
+        self.label_3.setObjectName("label_3")
+        self.label_4 = QtWidgets.QLabel(Form)
+        self.label_4.setGeometry(QtCore.QRect(20, 80, 391, 61))
+        self.label_4.setStyleSheet("font: 81 10pt \"Rockwell Extra Bold\";")
+        self.label_4.setObjectName("label_4")
+        self.atribute = QtWidgets.QComboBox(Form)
+        self.atribute.setGeometry(QtCore.QRect(20, 140, 221, 41))
+        self.atribute.setObjectName("atribute")
+        self.atribute.addItem("")
+        self.atribute.addItem("")
+        self.atribute.addItem("")
+        self.atribute.addItem("")
+        self.atribute.addItem("")
+        self.atribute.addItem("")
+        self.atribute.addItem("")
+        self.atribute.addItem("")
+        self.atribute.setItemText(7, "")
+        self.text_atr = QtWidgets.QLineEdit(Form)
+        self.text_atr.setGeometry(QtCore.QRect(20, 230, 221, 41))
+        self.text_atr.setObjectName("text_atr")
+        self.label_5 = QtWidgets.QLabel(Form)
+        self.label_5.setGeometry(QtCore.QRect(20, 170, 451, 61))
+        self.label_5.setStyleSheet("font: 81 10pt \"Rockwell Extra Bold\";")
+        self.label_5.setObjectName("label_5")
+        self.label_6 = QtWidgets.QLabel(Form)
+        self.label_6.setGeometry(QtCore.QRect(10, 340, 61, 61))
+        self.label_6.setStyleSheet("font: 81 14pt \"Rockwell Extra Bold\";\n"
+"font: 75 18pt \"Microsoft New Tai Lue\";")
+        self.label_6.setObjectName("label_6")
+        self.label_7 = QtWidgets.QLabel(Form)
+        self.label_7.setGeometry(QtCore.QRect(30, 270, 481, 61))
+        self.label_7.setStyleSheet("font: 81 28pt \"Rockwell Extra Bold\";")
+        self.label_7.setObjectName("label_7")
+        self.label_12 = QtWidgets.QLabel(Form)
+        self.label_12.setGeometry(QtCore.QRect(0, 400, 271, 61))
+        self.label_12.setStyleSheet("font: 81 14pt \"Rockwell Extra Bold\";\n"
+"font: 75 18pt \"Microsoft New Tai Lue\";")
+        self.label_12.setObjectName("label_12")
+        self.label_13 = QtWidgets.QLabel(Form)
+        self.label_13.setGeometry(QtCore.QRect(0, 470, 271, 61))
+        self.label_13.setStyleSheet("font: 81 14pt \"Rockwell Extra Bold\";\n"
+"font: 75 18pt \"Microsoft New Tai Lue\";")
+        self.label_13.setObjectName("label_13")
+        self.label_14 = QtWidgets.QLabel(Form)
+        self.label_14.setGeometry(QtCore.QRect(0, 540, 261, 61))
+        self.label_14.setStyleSheet("font: 81 14pt \"Rockwell Extra Bold\";\n"
+"font: 75 18pt \"Microsoft New Tai Lue\";")
+        self.label_14.setObjectName("label_14")
+        self.label_15 = QtWidgets.QLabel(Form)
+        self.label_15.setGeometry(QtCore.QRect(10, 610, 271, 61))
+        self.label_15.setStyleSheet("font: 81 14pt \"Rockwell Extra Bold\";\n"
+"font: 75 18pt \"Microsoft New Tai Lue\";")
+        self.label_15.setObjectName("label_15")
+        self.label_16 = QtWidgets.QLabel(Form)
+        self.label_16.setGeometry(QtCore.QRect(10, 680, 271, 61))
+        self.label_16.setStyleSheet("font: 81 14pt \"Rockwell Extra Bold\";\n"
+"font: 75 18pt \"Microsoft New Tai Lue\";")
+        self.label_16.setObjectName("label_16")
+        self.label_17 = QtWidgets.QLabel(Form)
+        self.label_17.setGeometry(QtCore.QRect(10, 740, 271, 61))
+        self.label_17.setStyleSheet("font: 81 14pt \"Rockwell Extra Bold\";\n"
+"font: 75 18pt \"Microsoft New Tai Lue\";")
+        self.label_17.setObjectName("label_17")
+        self.id = QtWidgets.QLineEdit(Form)
+        self.id.setGeometry(QtCore.QRect(260, 340, 241, 51))
+        self.id.setObjectName("id")
+        self.name = QtWidgets.QLineEdit(Form)
+        self.name.setGeometry(QtCore.QRect(260, 410, 241, 51))
+        self.name.setObjectName("name")
+        self.degree = QtWidgets.QLineEdit(Form)
+        self.degree.setGeometry(QtCore.QRect(260, 470, 241, 51))
+        self.degree.setObjectName("degree")
+        self.type = QtWidgets.QLineEdit(Form)
+        self.type.setGeometry(QtCore.QRect(270, 540, 241, 51))
+        self.type.setObjectName("type")
+        self.descript = QtWidgets.QLineEdit(Form)
+        self.descript.setGeometry(QtCore.QRect(260, 620, 241, 51))
+        self.descript.setObjectName("descript")
+        self.price = QtWidgets.QLineEdit(Form)
+        self.price.setGeometry(QtCore.QRect(260, 690, 241, 51))
+        self.price.setObjectName("price")
+        self.volume = QtWidgets.QLineEdit(Form)
+        self.volume.setGeometry(QtCore.QRect(260, 750, 241, 51))
+        self.volume.setObjectName("volume")
+        self.data_search = QtWidgets.QPushButton(Form)
+        self.data_search.setGeometry(QtCore.QRect(280, 220, 241, 51))
+        self.data_search.setObjectName("data_search")
+        self.count_data = QtWidgets.QLineEdit(Form)
+        self.count_data.setGeometry(QtCore.QRect(570, 520, 331, 101))
+        self.count_data.setObjectName("count_data")
+        self.label_8 = QtWidgets.QLabel(Form)
+        self.label_8.setGeometry(QtCore.QRect(570, 460, 561, 71))
+        self.label_8.setStyleSheet("font: 81 14pt \"Rockwell Extra Bold\";\n"
+"font: 75 18pt \"Microsoft New Tai Lue\";")
+        self.label_8.setObjectName("label_8")
+        self.add_change = QtWidgets.QPushButton(Form)
+        self.add_change.setGeometry(QtCore.QRect(650, 660, 741, 151))
+        self.add_change.setStyleSheet("font: 81 14pt \"Rockwell Extra Bold\";\n"
+"font: 75 18pt \"Microsoft New Tai Lue\";")
+        self.add_change.setObjectName("add_change")
+
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Form"))
+        self.label.setText(_translate("Form", "Магазин кофе"))
+        self.search_words.setText(_translate("Form", "Найти по ключевым словам"))
+        self.label_2.setText(_translate("Form", "Введите ключевые слова, описывающие кофе"))
+        self.label_3.setText(_translate("Form", "Найденные данные"))
+        self.label_4.setText(_translate("Form", "Выберите признак, по которому вы будете искать"))
+        self.atribute.setItemText(0, _translate("Form", "ID"))
+        self.atribute.setItemText(1, _translate("Form", "Название сорта"))
+        self.atribute.setItemText(2, _translate("Form", "Степень обжарки"))
+        self.atribute.setItemText(3, _translate("Form", "Молотый/в зернах"))
+        self.atribute.setItemText(4, _translate("Form", "Описание вкуса"))
+        self.atribute.setItemText(5, _translate("Form", "Цена"))
+        self.atribute.setItemText(6, _translate("Form", "Объём упаковки"))
+        self.label_5.setText(_translate("Form", "Введите текст признака кофе, которого вы хотите найти"))
+        self.label_6.setText(_translate("Form", "ID"))
+        self.label_7.setText(_translate("Form", "Найденные данные"))
+        self.label_12.setText(_translate("Form", "Название сорта"))
+        self.label_13.setText(_translate("Form", "Степень обжарки"))
+        self.label_14.setText(_translate("Form", " Молотый/в зернах"))
+        self.label_15.setText(_translate("Form", "Описание вкуса"))
+        self.label_16.setText(_translate("Form", "Цена"))
+        self.label_17.setText(_translate("Form", "Объём упаковки"))
+        self.data_search.setText(_translate("Form", "Найти данные"))
+        self.label_8.setText(_translate("Form", "Количество найдённых данных"))
+        self.add_change.setText(_translate("Form", "Добавить или изменить данные из БД"))
